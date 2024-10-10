@@ -1,91 +1,72 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Pressable } from "react-native";
-import { Link } from "react-router-native"; // Certifique-se de que você tem este import
+import { StyleSheet, Image, View, Text, Pressable } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
 
-const App = () => {
-  const [tarefas, setTarefas] = useState([
-    { id: '1', title: 'Hambúrguer', valor: 20.00, completed: false, image: require('../appContext/pasta imagens/hamburguer.png') },
-    { id: '2', title: 'Pizza', valor: 45.00, completed: false, image: require('../appContext/pasta imagens/pizza.png') },
-    { id: '3', title: 'Hot Dog', valor: 15.00, completed: false, image: require('../appContext/pasta imagens/hotdog.png') },
-    { id: '4', title: 'Açaí', valor: 30.00, completed: false, image: require('../appContext/pasta imagens/acai.png') },
-  ]);
-
-  const [carrinhoItem, setCarrinhoItem] = useState(0);
-
-  const adicionarCarrinho = (id) => {
-    setTarefas(tarefas.map(tarefa => {
-      if (tarefa.id === id && !tarefa.completed) {
-        setCarrinhoItem(carrinhoItem + 1);
-        return { ...tarefa, completed: true };
-      }
-      return tarefa;
-    }));
-  };
-
-  const removerCarrinho = (id) => {
-    setTarefas(tarefas.map(tarefa => {
-      if (tarefa.id === id && tarefa.completed) {
-        setCarrinhoItem(carrinhoItem > 0 ? carrinhoItem - 1 : 0);
-        return { ...tarefa, completed: false };
-      }
-      return tarefa;
-    }));
-  };
-
-  const renderizarTarefa = ({ item }) => {
-    return (
-      <View style={styles.itemContainer}>
-        <Image source={item.image} style={styles.image} />
-        <Text style={[styles.itemText, item.completed && styles.completedText]}>
-          {item.title}
-        </Text>
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            style={[styles.button, styles.completedButton]}
-            onPress={() => adicionarCarrinho(item.id)}
-          >
-            <Text style={styles.buttonText}>Adicionar ao Carrinho</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.button, styles.pendingButton]}
-            onPress={() => removerCarrinho(item.id)}
-          >
-            <Text style={styles.buttonText}>Retirar do Carrinho</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
+const App_logo = () => {
+  const Logo_deuses_gregos = require('./pasta de imagens/logo_deuses.png');
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image
-            source={require('../appContext/pasta imagens/menu.png')}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>iFome doppelganger</Text>
-        <TouchableOpacity style={styles.iconButton}>
-          <Link href="/carrinho" asChild>
-            <Pressable>
-              <Image
-                source={require('../appContext/pasta imagens/cart.png')}
-                style={styles.icon}
-              />
-              <Text style={styles.navLink}>Carrinho</Text>
-            </Pressable>
-          </Link>
-        </TouchableOpacity>
+      <View style={styles.navbar}>
+        <Link href="/bacario_modal" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Bancário Modal</Text>
+          </Pressable>
+        </Link>
+        <Link href="/calculadoras/calculadora_inicial" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Calculadora Inicial</Text>
+          </Pressable>
+        </Link>
+        <Link href="/calculadoras/calculadora" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Calculadora Intermediária</Text>
+          </Pressable>
+        </Link>
+        <Link href="/calculadoras/calculadora2" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Calculadora Final</Text>
+          </Pressable>
+        </Link>
+        <Link href="/flat-list" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Flat-List</Text>
+          </Pressable>
+        </Link>
+        <Link href="/Picker" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Picker Inicial</Text>
+          </Pressable>
+        </Link>
+        <Link href="/Picker/index2" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Picker Inicial 2</Text>
+          </Pressable>
+        </Link>
+        <Link href="/Picker2" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Picker 2</Text>
+          </Pressable>
+        </Link>
+        <Link href="/sign_up" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Cadastrar Mobile</Text>
+          </Pressable>
+        </Link>
+        <Link href="/sign_up-web" asChild>
+          <Pressable>
+            <Text style={styles.navLink}>Cadastrar Web</Text>
+          </Pressable>
+        </Link>
       </View>
 
-      <Text style={styles.cartText}>Itens no Carrinho: {carrinhoItem}</Text>
+      <View style={styles.logoContainer}>
+        <Image style={styles.logo} source={Logo_deuses_gregos} />
+      </View>
 
-      <FlatList
-        data={tarefas}
-        renderItem={renderizarTarefa}
-        keyExtractor={item => item.id}
+      <LinearGradient
+        colors={['rgba(0,0,0,0.8)', 'transparent']}
+        style={styles.background}
       />
     </View>
   );
@@ -94,90 +75,40 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
-    paddingTop: 20,
-    paddingHorizontal: 10,
-  },
-  headerContainer: {
-    flexDirection: 'row',
+    backgroundColor: '#4c669f',
     justifyContent: 'space-between',
-    alignItems: 'center',
+  },
+  navbar: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+    justifyContent: 'space-around',
     padding: 10,
-    backgroundColor: '#EA1D2C',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  headerTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  iconButton: {
-    padding: 10,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    tintColor: '#FFFFFF',
+    backgroundColor: '#333',
   },
   navLink: {
-    color: '#FFFFFF',
-    marginLeft: 5,
+    color: 'white',
+    fontSize: 16,
+    padding: 5, 
   },
-  cartText: {
-    fontSize: 18,
-    textAlign: 'center',
-    marginVertical: 10,
-  },
-  itemContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
-    alignItems: 'center',
-  },
-  itemText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginVertical: 10,
-  },
-  completedText: {
-    textDecorationLine: 'line-through',
-    color: '#888',
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginTop: 10,
-  },
-  button: {
+  logoContainer: {
     flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 10,
-    borderRadius: 25,
+    justifyContent: 'center', 
+    alignItems: 'center',    
   },
-  completedButton: {
-    backgroundColor: '#4CAF50',
+  logo: {
+    width: 150, 
+    height: 150,
+    resizeMode: 'contain',
   },
-  pendingButton: {
-    backgroundColor: '#F44336',
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  image: {
-    width: 120,
-    height: 120,
-    borderRadius: 10,
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    zIndex: -1, 
   },
 });
 
-export default App;
+export default App_logo;
