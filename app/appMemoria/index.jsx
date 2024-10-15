@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import { View, TextInput, Button, Text, Image, StyleSheet } from 'react-native';
-import * as ImagePicker from 'expo-image-picker'; // Biblioteca para selecionar imagens
+import * as ImagePicker from 'expo-image-picker'; 
 
 export default function App() {
   const [titulo, setTitulo] = useState('');
@@ -29,9 +29,9 @@ export default function App() {
 
       await AsyncStorage.setItem('@memorias', JSON.stringify(novasMemorias));
       setAppMemoria(novasMemorias);
-      limparFormulario(); // Limpar os campos após salvar
+      limparFormulario(); 
     } else {
-      alert('Por favor, preencha todos os campos.'); // Mensagem de alerta se algum campo estiver vazio
+      alert('Por favor, preencha todos os campos.'); 
     }
   };
  
@@ -57,7 +57,7 @@ export default function App() {
     setImagemUri('');
   };
 
-  const apagarMemoria = async (index) => { // Apagar memória específica
+  const apagarMemoria = async (index) => {
     const novasMemorias = appMemoria.filter((_, i) => i !== index);
     await AsyncStorage.setItem('@memorias', JSON.stringify(novasMemorias));
     setAppMemoria(novasMemorias);
